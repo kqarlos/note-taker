@@ -6,7 +6,7 @@ Steps to run application:
 1. 
 
 ```
-git clone 
+git clone git@github.com:kqarlos/note-taker.git
 
 ```
 

@@ -26,25 +26,41 @@ app.get("/notes", function (req, res) {
 
 // gets all notes
 app.get("/api/notes", function (req, res) {
-    return res.json(notes);
+    fs.readFile('db.json', (err, data) => {
+        if (err) throw err;
+        notes = JSON.parse(data);
+        return res.json(notes);
+    });
+
 });
 
-//creates new table
+//creates new NOTE
 app.post("/api/notes", function (req, res) {
-    var newNote = req.body;
-    fs.appendFile('message.txt', newNote, (err) => {
+    var newNote = {
+        id: req.body.id,
+        title: req.body.title,
+        body: req.body.body
+
+    }
+    fs.readFileSync('db.json', (err, data) => {
         if (err) throw err;
-        console.log('The note was appended to file!');
+        notes = JSON.parse(data);
     });
 
     notes.push(newNote);
-    res.json(newNote);
+
+    fs.writeFile("db.json", JSON.stringify(notes), (err) => {
+        if (err) throw err;
+        console.log('The file was updated!');
+    });
+
+    res.json(notes);
 });
 
 //deletes a note
 app.delete("/api/notes/:id", function (req, res) {
 
-    fs.readFile('db.json', (err, data) => {
+    fs.readFileSync('db.json', (err, data) => {
         if (err) throw err;
         notes = JSON.parse(data);
     });
@@ -56,9 +72,9 @@ app.delete("/api/notes/:id", function (req, res) {
         }
     }
 
-    fs.writeFile("db.json", notes, (err) => {
+    fs.writeFile("db.json", JSON.stringify(notes), (err) => {
         if (err) throw err;
-        console.log('The file has been saved!');
+        console.log('The file was updated!');
     });
 
     res.json(notes);

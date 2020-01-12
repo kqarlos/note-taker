@@ -36,12 +36,7 @@ app.get("/api/notes", function (req, res) {
 
 //creates new NOTE
 app.post("/api/notes", function (req, res) {
-    var newNote = {
-        id: req.body.id,
-        title: req.body.title,
-        body: req.body.body
-
-    }
+    var newNote = req.body
     fs.readFileSync('db.json', (err, data) => {
         if (err) throw err;
         notes = JSON.parse(data);
@@ -59,15 +54,25 @@ app.post("/api/notes", function (req, res) {
 
 //deletes a note
 app.delete("/api/notes/:id", function (req, res) {
-
+    var id = req.params.id;
     fs.readFileSync('db.json', (err, data) => {
         if (err) throw err;
         notes = JSON.parse(data);
     });
 
+    console.log(notes);
+    console.log("ID to delete: " + id);
 
     for (var i = 0; i < notes.length; i++) {
-        if (notes[i].id === id) {
+        // console.log("id to delete: " + id);
+        // console.log("Current Note: ");
+        // console.log(notes[i]);
+        // console.log("note id: ");
+        // console.log(notes[i].id);
+
+        if (notes[i].id == id) {
+            console.log("Deleted this note");
+            console.log(notes[i]);
             notes.splice(i, 1);
         }
     }
@@ -77,7 +82,7 @@ app.delete("/api/notes/:id", function (req, res) {
         console.log('The file was updated!');
     });
 
-    res.json(notes);
+    res.json(id);
 })
 
 // Starts the server to begin listening=========================

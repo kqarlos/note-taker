@@ -1,0 +1,26 @@
+{
+  "name": "note-taker",
+  "version": "1.0.0",
+  "description": "Website that allows to take notes",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kqarlos/note-taker.git"
+  },
+  "author": "Carlos Toledo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kqarlos/note-taker/issues"
+  },
+  "homepage": "https://github.com/kqarlos/note-taker#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

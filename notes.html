@@ -45,14 +45,14 @@
         <div class="row">
             <div class="container col-md-3 bg-light px-0">
                 <nav class="nav flex-column h1">
-                    <a class="nav-link text-dark y border" id="add">Add Note <i class="far fa-edit"></i></a>
+                    <a class="nav-link text-dark y border" id="addNote">Add Note <i class="far fa-edit"></i></a>
                     <a class="nav-link text-dark y border" href="/notes">My Notes <i class="far fa-clipboard"></i></a>
                 </nav>
             </div>
 
 
             <div class="container col-md-9" id="form">
-                <form class="my-0" id="form">
+                <form class="my-0">
                     <div class="row my-4">
                         <div class="col-12 display-4">Add Note</div>
                     </div>
@@ -68,10 +68,56 @@
                             Content</label>
                         <textarea type="text" class="form-control" rows="10" id="content"
                             placeholder="Ex: To-Do, Shopping, Important Dates..."></textarea>
-                        <button type="submit" class="btn btn-warning w-100 text-white" id="addNote">Add Note <i
+                        <button type="button" class="btn btn-warning w-100 text-white" id="submitNote"
+                            data-toggle="modal" data-target="#noteAddedModal">Add Note <i
                                 class="far fa-plus-square"></i></button>
                     </div>
                 </form>
+
+                <!-- Modal -->
+                <div class="modal fade" id="noteAddedModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Note Added</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Your notes have been updated
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container col-md-9" id="note">
+                <form class="my-0" id="form">
+                    <div class="row my-4">
+                        <div class="col-12 display-4" id="noteId">Note </div>
+                    </div>
+
+                    <div class="form-group h2 my-0">
+                        <label for="formGroupExampleInput" class="col-12 py-2 y"><i class="fas fa-heading"></i>
+                            Title</label>
+                        <textarea type="text" class="form-control" rows="1" id="noteTitle"></textarea>
+                    </div>
+                    <div class="form-group h2 my-0">
+                        <label for="formGroupExampleInput2" class="col-12 py-2 y"><i class="fas fa-align-left"></i>
+                            Content</label>
+                        <textarea type="text" class="form-control" rows="10" id="noteContent"></textarea>
+                        <button type="button" class="btn btn-warning w-100 text-white" id="updateNote"
+                            data-toggle="modal" data-target="#noteAddedModal">Update Note <i
+                                class="fas fa-sync"></i></button>
+                    </div>
+                </form>
+
+
             </div>
 
 
@@ -83,14 +129,33 @@
 
     <script>
 
-        $("#add").on("click", function (e) {
+        $("#addNote").on("click", function (e) {
             $("#notes").empty();
             $("#form").css("display", "block");
         });
 
-        $("#addNote").on("click", function (e) {
-            event.preventDefault();
+        $(document).on("click", ".list-group-item", function (e) {
+            $("#notes").empty();
+            $("#form").css("display", "none");
+            $("#note").css("display", "block");
+            $("noteID").append($(this).attr("data-id"));
 
+
+            $.get(`/api/notes/${$(this).attr("data-id")}`, function (data) {
+
+                $("#noteTitle").val(data.title);
+                $("#noteContent").val(data.body);
+                console.log($("#noteTitle"));
+
+                console.log(data.title);
+
+            });
+
+
+        });
+
+        $("#submitNote").on("click", function (e) {
+            event.preventDefault();
             var newNote = {
                 id: 10,
                 title: $("#title").val().trim(),
@@ -99,16 +164,16 @@
 
             $.post("/api/notes/", newNote).then(function (data) {
                 console.log(data);
-                alert("Adding table...");
             });
 
 
         });
 
 
-
         function renderNotes() {
             $("#form").css("display", "none");
+            $("#note").css("display", "none");
+
 
             $.get("/api/notes", function (data) {
                 for (var i = 0; i < data.length; i++) {
@@ -116,6 +181,7 @@
                     var row = $('<div class="row">');
                     var col = $('<div class="col-12">');
                     var listGroupItem = $("<li class='list-group-item'>");
+                    listGroupItem.attr("data-id", data[i].id)
                     var button = $('<button class="btn float-right del">');
                     button.attr("data-id", data[i].id)
                     button.text("X");

@@ -36,6 +36,32 @@ app.get("/api/notes", function (req, res) {
 
 });
 
+
+// gets a notes
+app.get("/api/notes/:id", function (req, res) {
+    var id = req.params.id;
+    fs.readFileSync('db.json', (err, data) => {
+        if (err) throw err;
+        notes = JSON.parse(data);
+    });
+
+    console.log(notes);
+    console.log("ID to delete: " + id);
+
+    for (var i = 0; i < notes.length; i++) {
+
+        if (notes[i].id == id) {
+            // console.log("Deleted this note");
+            // console.log(notes[i]);
+            // notes.splice(i, 1);
+            return res.json(notes[i]);
+
+        }
+    }
+
+    res.json(id);
+})
+
 //creates new NOTE
 app.post("/api/notes", function (req, res) {
     var newNote = req.body

@@ -132,17 +132,21 @@
         $("#addNote").on("click", function (e) {
             $("#notes").empty();
             $("#form").css("display", "block");
+            $("#note").css("display", "none");
+
         });
 
         $(document).on("click", ".list-group-item", function (e) {
             $("#notes").empty();
             $("#form").css("display", "none");
             $("#note").css("display", "block");
-            $("noteID").append($(this).attr("data-id"));
+            var id = $(this).attr("data-id");
 
+            $("noteID").append(id);
 
-            $.get(`/api/notes/${$(this).attr("data-id")}`, function (data) {
+            $.get(`/api/notes/${id}`, function (data) {
 
+                $("#noteTitle").attr("data-id", id);
                 $("#noteTitle").val(data.title);
                 $("#noteContent").val(data.body);
                 console.log($("#noteTitle"));
@@ -163,6 +167,24 @@
             };
 
             $.post("/api/notes/", newNote).then(function (data) {
+                console.log(data);
+            });
+
+
+        });
+
+        $("#updateNote").on("click", function (e) {
+            event.preventDefault();
+            var updatedNote = {
+                id: $("#noteTitle").attr("data-id"),
+                title: $("#noteTitle").val().trim(),
+                body: $("#noteContent").val().trim(),
+            };
+
+            console.log("Sending new note to server ============================");
+            console.log(updatedNote);
+
+            $.post("/api/notes/", updatedNote).then(function (data) {
                 console.log(data);
             });
 

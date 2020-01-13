@@ -37,7 +37,7 @@ app.get("/api/notes", function (req, res) {
 });
 
 
-// gets a notes
+// gets a note
 app.get("/api/notes/:id", function (req, res) {
     var id = req.params.id;
     fs.readFileSync('db.json', (err, data) => {
@@ -45,30 +45,35 @@ app.get("/api/notes/:id", function (req, res) {
         notes = JSON.parse(data);
     });
 
-    console.log(notes);
-    console.log("ID to delete: " + id);
+    console.log("Looking for note ID: " + id + "=============");
 
     for (var i = 0; i < notes.length; i++) {
 
         if (notes[i].id == id) {
-            // console.log("Deleted this note");
-            // console.log(notes[i]);
-            // notes.splice(i, 1);
+            console.log("Found:");
+            console.log(notes[i]);
             return res.json(notes[i]);
-
         }
     }
 
     res.json(id);
 })
 
-//creates new NOTE
+//creates or updates new NOTE
 app.post("/api/notes", function (req, res) {
-    var newNote = req.body
+    var newNote = req.body;
+    console.log("New Note ====================");
+    console.log(req.body);
     fs.readFileSync('db.json', (err, data) => {
         if (err) throw err;
         notes = JSON.parse(data);
     });
+
+    for (var i = 0; i < notes.length; i++) {
+        if (newNote.id == notes[i].id) {
+            notes.splice(i, 1);
+        }
+    }
 
     notes.push(newNote);
 
@@ -88,8 +93,7 @@ app.delete("/api/notes/:id", function (req, res) {
         notes = JSON.parse(data);
     });
 
-    console.log(notes);
-    console.log("ID to delete: " + id);
+    // console.log(notes);
 
     for (var i = 0; i < notes.length; i++) {
         // console.log("id to delete: " + id);
@@ -99,7 +103,7 @@ app.delete("/api/notes/:id", function (req, res) {
         // console.log(notes[i].id);
 
         if (notes[i].id == id) {
-            console.log("Deleted this note");
+            console.log("Deleting ==============");
             console.log(notes[i]);
             notes.splice(i, 1);
         }

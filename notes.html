@@ -43,23 +43,73 @@
     <div class="container mx-md-0 mb-5">
 
         <div class="row">
-            <div class="container y col-md-3">
-                <nav class="nav flex-column h1 py-2">
-                    <a class="nav-link text-dark" href="/addNote">Add Note</a>
-                    <a class="nav-link text-dark" href="/notes">My Notes</a>
+            <div class="container col-md-3 bg-light px-0">
+                <nav class="nav flex-column h1">
+                    <a class="nav-link text-dark y border" id="add">Add Note <i class="far fa-edit"></i></a>
+                    <a class="nav-link text-dark y border" href="/notes">My Notes <i class="far fa-clipboard"></i></a>
                 </nav>
             </div>
 
 
+            <div class="container col-md-9" id="form">
+                <form class="my-0" id="form">
+                    <div class="row my-4">
+                        <div class="col-12 display-4">Add Note</div>
+                    </div>
+
+                    <div class="form-group h2 my-0">
+                        <label for="formGroupExampleInput" class="col-12 py-2 y"><i class="fas fa-heading"></i>
+                            Title</label>
+                        <textarea type="text" class="form-control" rows="1" id="title"
+                            placeholder="My Title"></textarea>
+                    </div>
+                    <div class="form-group h2 my-0">
+                        <label for="formGroupExampleInput2" class="col-12 py-2 y"><i class="fas fa-align-left"></i>
+                            Content</label>
+                        <textarea type="text" class="form-control" rows="10" id="content"
+                            placeholder="Ex: To-Do, Shopping, Important Dates..."></textarea>
+                        <button type="submit" class="btn btn-warning w-100 text-white" id="addNote">Add Note <i
+                                class="far fa-plus-square"></i></button>
+                    </div>
+                </form>
+            </div>
+
+
             <div class="container col-md-9" id="notes">
+
             </div>
         </div>
     </div>
 
     <script>
 
+        $("#add").on("click", function (e) {
+            $("#notes").empty();
+            $("#form").css("display", "block");
+        });
+
+        $("#addNote").on("click", function (e) {
+            event.preventDefault();
+
+            var newNote = {
+                id: 10,
+                title: $("#title").val().trim(),
+                body: $("#content").val().trim(),
+            };
+
+            $.post("/api/notes/", newNote).then(function (data) {
+                console.log(data);
+                alert("Adding table...");
+            });
+
+
+        });
+
+
 
         function renderNotes() {
+            $("#form").css("display", "none");
+
             $.get("/api/notes", function (data) {
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i]);
@@ -104,7 +154,10 @@
 
         });
 
-        renderNotes();
+        $(document).ready(function () {
+            renderNotes();
+
+        });
 
     </script>
 

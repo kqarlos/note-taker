@@ -40,7 +40,7 @@
         </a>
     </nav>
 
-    <div class="container mx-md-0">
+    <div class="container mx-md-0 mb-5">
 
         <div class="row">
             <div class="container y col-md-3">
@@ -52,32 +52,59 @@
 
 
             <div class="container col-md-9" id="notes">
-                <div class="row my-4">
-                    <div class="col-12 display-4">My Notes</div>
-                </div>
-                
             </div>
         </div>
     </div>
 
     <script>
 
-        $.get("/api/notes", function (data) {
-            for (var i = 0; i < data.length; i++) {
-                console.log(data[i]);
-                var row = $('<div class="row">');
-                var col = $('<div class="col-12">');
-                var listGroupItem = $("<li class='list-group-item'>");
-                if ((i + 1) % 2 != 0) {
-                    listGroupItem.addClass("y");
+
+        function renderNotes() {
+            $.get("/api/notes", function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                    var row = $('<div class="row">');
+                    var col = $('<div class="col-12">');
+                    var listGroupItem = $("<li class='list-group-item'>");
+                    var button = $('<button class="btn float-right del">');
+                    button.attr("data-id", data[i].id)
+                    button.text("X");
+                    if (i % 2 === 0) {
+                        listGroupItem.addClass("y");
+                        button.addClass("bg-white");
+                    } else {
+                        button.addClass("y");
+                    }
+                    listGroupItem.append(button);
+                    listGroupItem.append($("<h2 class='h2'>").text("Note ID: " + data[i].id));
+                    listGroupItem.append($("<h2 class='h2'>").text("Title:  " + data[i].title));
+                    col.append(listGroupItem);
+                    row.append(col);
+
+                    if (i === 0) {
+                        var tRow = $('<div class="row my-4">');
+                        var tCol = $('<div class="col-12 display-4">');
+                        tCol.text("My Notes");
+                        tRow.append(tCol);
+                        $("#notes").append(tRow);
+
+                    }
+
+                    $("#notes").append(row);
                 }
-                listGroupItem.append($("<h2 class='h2'>").text("Note ID: " + data[i].id));
-                listGroupItem.append($("<h2 class='h2'>").text("Title:  " + data[i].title));
-                col.append(listGroupItem);
-                row.append(col);
-                $("#notes").append(row);
-            }
+            });
+        }
+
+        $(document).on("click", ".del", function (event) {
+
+            $.ajax({ url: `/api/notes/${$(this).attr("data-id")}`, method: "DELETE" }).then(function () {
+                $("#notes").empty();
+                renderNotes();
+            });
+
         });
+
+        renderNotes();
 
     </script>
 

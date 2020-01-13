@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Font Awesome CSS Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+    <!-- My stylesheets -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- jQuery JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- My JavaScript -->
+    <script src="assets/js/script.js"></script>
+
+    <title> Note Taker 📝</title>
+</head>
+
+<body>
+
+
+    <nav class="navbar bg-warning justify-content-center">
+        <a class="navbar-brand" href="/">
+            <span class="display-3 text-white">📝 Note Taker</span>
+        </a>
+    </nav>
+
+    <div class="container mx-md-0">
+
+        <div class="row">
+            <div class="container y col-md-3">
+                <nav class="nav flex-column h1 py-2">
+                    <a class="nav-link text-dark" href="/addNote">Add Note</a>
+                    <a class="nav-link text-dark" href="/notes">My Notes</a>
+                </nav>
+            </div>
+
+
+            <div class="container col-md-9" id="notes">
+                <div class="row my-4">
+                    <div class="col-12 display-4">My Notes</div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $.get("/api/notes", function (data) {
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i]);
+                var row = $('<div class="row">');
+                var col = $('<div class="col-12">');
+                var listGroupItem = $("<li class='list-group-item'>");
+                if ((i + 1) % 2 != 0) {
+                    listGroupItem.addClass("y");
+                }
+                listGroupItem.append($("<h2 class='h2'>").text("Note ID: " + data[i].id));
+                listGroupItem.append($("<h2 class='h2'>").text("Title:  " + data[i].title));
+                col.append(listGroupItem);
+                row.append(col);
+                $("#notes").append(row);
+            }
+        });
+
+    </script>
+
+    <!-- jQuery JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- My JavaScript -->
+    <script src="assets/js/script.js"></script>
+
+</body>
+
+
+</html>

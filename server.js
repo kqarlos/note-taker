@@ -2,6 +2,8 @@
 var express = require("express");
 var path = require("path");
 const fs = require('fs');
+const Note = require("./note");
+
 
 // Sets up the Express App
 // =================================================
@@ -59,24 +61,31 @@ app.get("/api/notes/:id", function (req, res) {
     res.json(id);
 })
 
-//creates or updates new NOTE
+//creates or updates a NOTE -1 is new else update
 app.post("/api/notes", function (req, res) {
-    var newNote = req.body;
     console.log("New Note ====================");
-    console.log(req.body);
     fs.readFileSync('db.json', (err, data) => {
         if (err) throw err;
         notes = JSON.parse(data);
     });
-    var index = 0;
-    for (var i = 0; i < notes.length; i++) {
-        if (newNote.id == notes[i].id) {
-            index = i;
-            notes.splice(i, 1);
+
+    var newNote;
+    if (req.body.id == -1) {
+        newNote = new Note(req.body.title, req.body.body);
+        notes.push(newNote);
+
+    } else {
+        newNote = req.body;
+        // var index = -1;
+        for (var i = 0; i < notes.length; i++) {
+            if (newNote.id == notes[i].id) {
+                // index = i;
+                notes.splice(i, 1, newNote);
+                // notes.splice(index, 0, newNote);
+            }
         }
     }
-
-    notes.splice(index, 0, newNote);
+    console.log(newNote);
 
     fs.writeFile("db.json", JSON.stringify(notes), (err) => {
         if (err) throw err;

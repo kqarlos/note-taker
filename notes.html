@@ -99,7 +99,7 @@
             <div class="container col-md-9" id="note">
                 <form class="my-0" id="form">
                     <div class="row my-4">
-                        <div class="col-12 display-4" id="noteId">Note </div>
+                        <div class="col-12 display-4" id="noteID">Note </div>
                     </div>
 
                     <div class="form-group h2 my-0">
@@ -151,6 +151,7 @@
 
     <script>
 
+        //Clears thhe notes from the webpage. Displays the form to add a note. 
         $("#addNote").on("click", function (e) {
             $("#notes").empty();
             $("#form").css("display", "block");
@@ -158,32 +159,54 @@
 
         });
 
+        //When the user clicks a note to see details. Clears all notes from the webpage. 
+        //Hides the form to add a note
+        //Displays the form that allows to see and edit a note.
         $(document).on("click", ".list-group-item", function (e) {
             $("#notes").empty();
             $("#form").css("display", "none");
             $("#note").css("display", "block");
-            var id = $(this).attr("data-id");
-
-            $("noteID").append(id);
-
+            //Gets the note id 
+            var id = parseInt($(this).attr("data-id"));
+            $("#noteID").append(id);
+            //uses note id to query the server on that id
             $.get(`/api/notes/${id}`, function (data) {
-
-                $("#noteTitle").attr("data-id", id);
+                //updates web elements
                 $("#noteTitle").val(data.title);
                 $("#noteContent").val(data.body);
-                console.log($("#noteTitle"));
-
-                console.log(data.title);
 
             });
 
-
         });
+
+        // function submitNote(noteID) {
+        //     var newNote = {
+        //         id: noteID,
+        //         title: $("#title").val().trim(),
+        //         body: $("#content").val().trim(),
+        //     };
+
+        //     $.post("/api/notes/", newNote).then(function (data) {
+        //         console.log(data);
+        //     });
+        // }
+
+        // $("#submitNote").on("click", function (e) {
+        //     event.preventDefault();
+        //     // reorganizeIDs().then(function () {
+        //     $.get("/api/notes", function (data) {
+        //         submitNote(data.length + 1);
+        //     });
+        //     // });
+
+        // });
+
+
 
         $("#submitNote").on("click", function (e) {
             event.preventDefault();
             var newNote = {
-                id: 10,
+                id: -1,
                 title: $("#title").val().trim(),
                 body: $("#content").val().trim(),
             };
@@ -191,14 +214,12 @@
             $.post("/api/notes/", newNote).then(function (data) {
                 console.log(data);
             });
-
-
         });
 
         $("#updateNote").on("click", function (e) {
             event.preventDefault();
             var updatedNote = {
-                id: parseInt($("#noteTitle").attr("data-id")),
+                id: parseInt($("#noteID").text().substring(5)),
                 title: $("#noteTitle").val().trim(),
                 body: $("#noteContent").val().trim(),
             };
@@ -217,7 +238,6 @@
         function renderNotes() {
             $("#form").css("display", "none");
             $("#note").css("display", "none");
-
 
             $.get("/api/notes", function (data) {
                 for (var i = 0; i < data.length; i++) {
@@ -252,6 +272,7 @@
 
                     $("#notes").append(row);
                 }
+                // reorganizeIDs();
             });
         }
 
@@ -268,6 +289,18 @@
             renderNotes();
 
         });
+
+        // function reorganizeIDs() {
+        //     $.get("/api/notes", function (data) {
+
+        //         for (var i = 0; i < data.length; i++) {
+        //             var newNote = data[i];
+        //             newNote.id = i;
+        //             $.post("/api/notes/", newNote);
+        //         }
+
+        //     });
+        // }
 
     </script>
 

@@ -123,7 +123,7 @@ app.get("/api/notes/:id", function (req, res) {
 
 ## Deployed Link
 
-* [See Live Site](https://kqarlos.github.io/note-taker)
+* [See Live Site](https://floating-plateau-43338.herokuapp.com/)
 
 ## Author
 

@@ -19,7 +19,7 @@ node server.js
 
 ## Site Pictures
 
-1. Working app
+* Working app
 
 ![Site](assets/images/live.gif)
 

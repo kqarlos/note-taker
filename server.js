@@ -28,7 +28,7 @@ app.get("/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "notes.html"));
 });
 
-// gets all notes
+// gets all notes by reading .json file and returning the data
 app.get("/api/notes", function (req, res) {
     fs.readFile('db.json', (err, data) => {
         if (err) throw err;
@@ -39,7 +39,7 @@ app.get("/api/notes", function (req, res) {
 });
 
 
-// gets a note
+// gets a note by reading the .json file and getting the note the user asked for by its id
 app.get("/api/notes/:id", function (req, res) {
     var id = req.params.id;
     fs.readFileSync('db.json', (err, data) => {
@@ -61,7 +61,7 @@ app.get("/api/notes/:id", function (req, res) {
     res.json(id);
 })
 
-//creates or updates a NOTE -1 is new else update
+//creates or updates a NOTE. -1 if new note else updated note
 app.post("/api/notes", function (req, res) {
     console.log("New Note ====================");
     fs.readFileSync('db.json', (err, data) => {
@@ -76,12 +76,9 @@ app.post("/api/notes", function (req, res) {
 
     } else {
         newNote = req.body;
-        // var index = -1;
         for (var i = 0; i < notes.length; i++) {
             if (newNote.id == notes[i].id) {
-                // index = i;
                 notes.splice(i, 1, newNote);
-                // notes.splice(index, 0, newNote);
             }
         }
     }
@@ -95,7 +92,7 @@ app.post("/api/notes", function (req, res) {
     res.json(notes);
 });
 
-//deletes a note
+//deletes a note dpending on the id sent by the client-side js
 app.delete("/api/notes/:id", function (req, res) {
     var id = req.params.id;
     fs.readFileSync('db.json', (err, data) => {
@@ -103,14 +100,7 @@ app.delete("/api/notes/:id", function (req, res) {
         notes = JSON.parse(data);
     });
 
-    // console.log(notes);
-
     for (var i = 0; i < notes.length; i++) {
-        // console.log("id to delete: " + id);
-        // console.log("Current Note: ");
-        // console.log(notes[i]);
-        // console.log("note id: ");
-        // console.log(notes[i].id);
 
         if (notes[i].id == id) {
             console.log("Deleting ==============");

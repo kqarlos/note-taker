@@ -43,14 +43,15 @@
     <div class="container mx-md-0 mb-5">
 
         <div class="row">
+            <!--------------- Side Bar ---------->
             <div class="container col-md-3 bg-light px-0">
                 <nav class="nav flex-column h1">
                     <a class="nav-link text-dark y border" id="addNote">Add Note <i class="far fa-edit"></i></a>
                     <a class="nav-link text-dark y border" href="/notes">My Notes <i class="far fa-clipboard"></i></a>
                 </nav>
             </div>
-
-
+            <!--------------- End Side Bar ---------->
+            <!--------------- Start Form -------------------->
             <div class="container col-md-9" id="form">
                 <form class="my-0">
                     <div class="row my-4">
@@ -74,7 +75,7 @@
                     </div>
                 </form>
 
-                <!-- Modal -->
+                <!-- Note Added Modal -->
                 <div class="modal fade" id="noteAddedModal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -96,7 +97,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- End Modal-->
             </div>
+
+            <!----------------- End Form ----------------->
+
+            <!------------------------- Start Single Note Display ------------------------->
 
             <div class="container col-md-9" id="note">
                 <form class="my-0" id="form">
@@ -117,7 +123,8 @@
                             data-toggle="modal" data-target="#noteUpdatedModal">Update Note <i
                                 class="fas fa-sync"></i></button>
                     </div>
-                    <!-- Modal -->
+
+                    <!-- Note Updated Modal -->
                     <div class="modal fade" id="noteUpdatedModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -139,6 +146,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- End Modal -->
 
 
                 </form>
@@ -146,7 +154,9 @@
 
             </div>
 
+            <!------------------------- End Single Note Display ------------------------->
 
+            <!-- Notes rendered here vv -->
             <div class="container col-md-9" id="notes">
 
             </div>
@@ -165,14 +175,15 @@
 
         //When the user clicks a note to see details. Clears all notes from the webpage. 
         //Hides the form to add a note
-        //Displays the form that allows to see and edit a note.
+        //Displays the form that allows to see and edit a note. GEts note information from server
         $(document).on("click", ".list-group-item", function (e) {
             $("#notes").empty();
             $("#form").css("display", "none");
             $("#note").css("display", "block");
             //Gets the note id 
             var id = parseInt($(this).attr("data-id"));
-            $("#noteID").append(id);
+            $("#noteID").empty();
+            $("#noteID").append("Note " + id);
             //uses note id to query the server on that id
             $.get(`/api/notes/${id}`, function (data) {
                 //updates web elements
@@ -183,30 +194,7 @@
 
         });
 
-        // function submitNote(noteID) {
-        //     var newNote = {
-        //         id: noteID,
-        //         title: $("#title").val().trim(),
-        //         body: $("#content").val().trim(),
-        //     };
-
-        //     $.post("/api/notes/", newNote).then(function (data) {
-        //         console.log(data);
-        //     });
-        // }
-
-        // $("#submitNote").on("click", function (e) {
-        //     event.preventDefault();
-        //     // reorganizeIDs().then(function () {
-        //     $.get("/api/notes", function (data) {
-        //         submitNote(data.length + 1);
-        //     });
-        //     // });
-
-        // });
-
-
-
+        //Sends new note information to the server
         $("#submitNote").on("click", function (e) {
             event.preventDefault();
             var newNote = {
@@ -220,6 +208,7 @@
             });
         });
 
+        //sends updated note information to server
         $("#updateNote").on("click", function (e) {
             event.preventDefault();
             var updatedNote = {
@@ -228,9 +217,6 @@
                 body: $("#noteContent").val().trim(),
             };
 
-            console.log("Sending new note to server ============================");
-            console.log(updatedNote);
-
             $.post("/api/notes/", updatedNote).then(function (data) {
                 console.log(data);
             });
@@ -238,7 +224,8 @@
 
         });
 
-
+        //Gets all notes from server
+        //Loops through every note and created DOM elements to display note cards on the webpage
         function renderNotes() {
             $("#form").css("display", "none");
             $("#note").css("display", "none");
@@ -276,10 +263,10 @@
 
                     $("#notes").append(row);
                 }
-                // reorganizeIDs();
             });
         }
 
+        //Sends id of note to be deleted to the server
         $(document).on("click", ".del", function (event) {
 
             $.ajax({ url: `/api/notes/${$(this).attr("data-id")}`, method: "DELETE" }).then(function () {
@@ -289,22 +276,10 @@
 
         });
 
+        //Render notes when directed to this page
         $(document).ready(function () {
             renderNotes();
-
         });
-
-        // function reorganizeIDs() {
-        //     $.get("/api/notes", function (data) {
-
-        //         for (var i = 0; i < data.length; i++) {
-        //             var newNote = data[i];
-        //             newNote.id = i;
-        //             $.post("/api/notes/", newNote);
-        //         }
-
-        //     });
-        // }
 
     </script>
 

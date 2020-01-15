@@ -68,14 +68,15 @@ app.post("/api/notes", function (req, res) {
         if (err) throw err;
         notes = JSON.parse(data);
     });
-
+    var index = 0;
     for (var i = 0; i < notes.length; i++) {
         if (newNote.id == notes[i].id) {
+            index = i;
             notes.splice(i, 1);
         }
     }
 
-    notes.push(newNote);
+    notes.splice(index, 0, newNote);
 
     fs.writeFile("db.json", JSON.stringify(notes), (err) => {
         if (err) throw err;

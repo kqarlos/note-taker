@@ -112,9 +112,31 @@
                             Content</label>
                         <textarea type="text" class="form-control" rows="10" id="noteContent"></textarea>
                         <button type="button" class="btn btn-warning w-100 text-white" id="updateNote"
-                            data-toggle="modal" data-target="#noteAddedModal">Update Note <i
+                            data-toggle="modal" data-target="#noteUpdatedModal">Update Note <i
                                 class="fas fa-sync"></i></button>
                     </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="noteUpdatedModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Note Updated</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Your notes have been updated
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </form>
 
 
@@ -176,7 +198,7 @@
         $("#updateNote").on("click", function (e) {
             event.preventDefault();
             var updatedNote = {
-                id: $("#noteTitle").attr("data-id"),
+                id: parseInt($("#noteTitle").attr("data-id")),
                 title: $("#noteTitle").val().trim(),
                 body: $("#noteContent").val().trim(),
             };

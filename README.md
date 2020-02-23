@@ -7,7 +7,7 @@ Real-time note taking application. Take notes, update them, and delete them with
 Steps to run application:
 1. Clone git repository
 2. Install dependencies
-3. Start the applicaiton with an empty db.json file
+3. Start the application with an empty db.json file
 4. run app
 
 ```
@@ -123,7 +123,7 @@ app.get("/api/notes/:id", function (req, res) {
 
 ## Deployed Link
 
-* [See Live Site](https://floating-plateau-43338.herokuapp.com/)
+* [See Live Site](https://note-taker2020.herokuapp.com/)
 
 ## Author
 

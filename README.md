@@ -1,8 +1,28 @@
 # Note Taker
 
+![Languages](https://img.shields.io/github/languages/count/kqarlos/note-taker)
+![Top Language](https://img.shields.io/github/languages/top/kqarlos/note-taker)
+![Code Size](https://img.shields.io/github/languages/code-size/kqarlos/note-taker)
+![Repo Size](https://img.shields.io/github/repo-size/kqarlos/note-taker)
+![Total Lines](https://img.shields.io/tokei/lines/github/kqarlos/note-taker)
+![Express V](https://img.shields.io/github/package-json/dependency-version/kqarlos/note-taker/express)
+![Last Commit](https://img.shields.io/github/last-commit/kqarlos/note-taker)
+![Followers](https://img.shields.io/github/followers/kqarlos?style=social)
+
+## Description
+
 Real-time note taking application. Take notes, update them, and delete them with this note-taker.
 
-## Getting Started
+## Table of Contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+    * [Screenshots](#screenshots)
+    * [Snippets](#snippets)
+* [Credits](#credits)
+* [License](#license)
+
+## Installation
 
 Steps to run application:
 1. Clone git repository
@@ -17,14 +37,18 @@ node server.js
 
 ```
 
-## Site Pictures
+* [See Live Site](https://note-taker2020.herokuapp.com/)
+
+## Usage
+
+## Screenshots
 
 * Working app
 
 ![Site](assets/images/live.gif)
 
 
-## Code Snippets
+## Snippets
 
 
 
@@ -112,7 +136,16 @@ app.get("/api/notes/:id", function (req, res) {
 * These two pieces of code show how information is processed on the client side and then sent over to the server to be retrieved from the _db.json_ file. On the client-side, the _note.id_ is retrieved from the DOM. The _note.id_ is sent to the server with a _get()_ method. On the server side _Express_ receives the id and with this, the Note is retreived form the _db.json_ file. Now, the _Note_ object is returned to the client-side and processed to be displayed on the user's screen.
 
 
-## Built With
+## Credits
+
+### Author
+
+- Carlos Toledo: [portfolio](https://professional-portfolio2020.herokuapp.com/)
+- Github: [kqarlos](https://www.github.com/kqarlos)
+- LinkedIn: [carlos-toledo415](https://www.linkedin.com/in/carlos-toledo415/)
+
+
+### Built With
 
 * [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -120,24 +153,10 @@ app.get("/api/notes/:id", function (req, res) {
 * [Javascript](https://www.javascript.com/)
 * [Node.js](https://nodejs.org/en/)
 * [Express](https://www.npmjs.com/package/express)
-
-## Deployed Link
-
-* [See Live Site](https://note-taker2020.herokuapp.com/)
-
-## Author
-
- * **Carlos Toledo** 
-
-## Links
-
-- [Link to site repository](https://github.com/kqarlos/note-taker)
-- [Link to Github](https://www.github.com/kqarlos)
-- [Link to LinkedIn](https://www.linkedin.com/in/carlos-toledo415/)
-
-
-## Acknowledgments
-
 * [W3 Schools](https://www.w3schools.com/)
 * [Bootstrap components](https://getbootstrap.com/docs/4.4/components/navbar/)
 * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+
+## License
+
+![License](https://img.shields.io/github/license/kqarlos/note-taker)

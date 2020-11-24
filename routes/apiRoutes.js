@@ -1,12 +1,12 @@
 const router = require("express").Router();
 const fs = require('fs');
-const Note = require("../note");
+const Note = require("../data/note");
 var notes = [];
 
 
 // gets all notes by reading .json file and returning the data
 router.get("/notes", function (req, res) {
-    fs.readFile('./db.json', (err, data) => {
+    fs.readFile('./data/db.json', (err, data) => {
         if (err) throw err;
         notes = JSON.parse(data);
         return res.json(notes);
@@ -18,7 +18,7 @@ router.get("/notes", function (req, res) {
 // gets a note by reading the .json file and getting the note the user asked for by its id
 router.get("/notes/:id", function (req, res) {
     var id = req.params.id;
-    fs.readFileSync('./db.json', (err, data) => {
+    fs.readFileSync('./data/db.json', (err, data) => {
         if (err) throw err;
         notes = JSON.parse(data);
     });
@@ -40,7 +40,7 @@ router.get("/notes/:id", function (req, res) {
 //creates or updates a NOTE. -1 if new note else updated note
 router.post("/notes", function (req, res) {
     console.log("New Note ====================");
-    fs.readFileSync('./db.json', (err, data) => {
+    fs.readFileSync('./data/db.json', (err, data) => {
         if (err) throw err;
         notes = JSON.parse(data);
     });
@@ -60,7 +60,7 @@ router.post("/notes", function (req, res) {
     }
     console.log(newNote);
 
-    fs.writeFile("./db.json", JSON.stringify(notes), (err) => {
+    fs.writeFile("./data/db.json", JSON.stringify(notes), (err) => {
         if (err) throw err;
         console.log('The file was updated!');
     });
@@ -71,7 +71,7 @@ router.post("/notes", function (req, res) {
 //deletes a note dpending on the id sent by the client-side js
 router.delete("/notes/:id", function (req, res) {
     var id = req.params.id;
-    fs.readFileSync('./db.json', (err, data) => {
+    fs.readFileSync('./data/db.json', (err, data) => {
         if (err) throw err;
         notes = JSON.parse(data);
     });
@@ -85,7 +85,7 @@ router.delete("/notes/:id", function (req, res) {
         }
     }
 
-    fs.writeFile("./db.json", JSON.stringify(notes), (err) => {
+    fs.writeFile("./data/db.json", JSON.stringify(notes), (err) => {
         if (err) throw err;
         console.log('The file was updated!');
     });

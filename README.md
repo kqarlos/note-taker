@@ -1,13 +1,17 @@
 # Note Taker
 
-![Languages](https://img.shields.io/github/languages/count/kqarlos/note-taker)
-![Top Language](https://img.shields.io/github/languages/top/kqarlos/note-taker)
-![Code Size](https://img.shields.io/github/languages/code-size/kqarlos/note-taker)
-![Repo Size](https://img.shields.io/github/repo-size/kqarlos/note-taker)
-![Total Lines](https://img.shields.io/tokei/lines/github/kqarlos/note-taker)
-![Express V](https://img.shields.io/github/package-json/dependency-version/kqarlos/note-taker/express)
-![Last Commit](https://img.shields.io/github/last-commit/kqarlos/note-taker)
-![Followers](https://img.shields.io/github/followers/kqarlos?style=social)
+</br>
+<p align="center">
+    <img src="https://img.shields.io/github/languages/count/kqarlos/note-taker?style=for-the-badge" alt="Languages" />
+    <img src="https://img.shields.io/github/languages/top/kqarlos/note-taker?style=for-the-badge" alt="Top Language" />
+    <img src="https://img.shields.io/github/languages/code-size/kqarlos/note-taker?style=for-the-badge" alt="Code Size" />
+    <img src="https://img.shields.io/github/repo-size/kqarlos/note-taker?style=for-the-badge" alt="Repo Size" />   
+    <img src="https://img.shields.io/tokei/lines/github/kqarlos/note-taker?style=for-the-badge" alt="Total Lines" />
+    <img src="https://img.shields.io/github/package-json/dependency-version/kqarlos/note-taker/express?style=for-the-badge" alt="Express Version" />
+    <img src="https://img.shields.io/github/last-commit/kqarlos/note-taker?style=for-the-badge" alt="Last Commit" />  
+    <img src="https://img.shields.io/github/issues/kqarlos/note-taker?style=for-the-badge" alt="Issues" />  
+    <img src="https://img.shields.io/github/followers/kqarlos?style=social" alt="Followers" />  
+    </p>
 
 ## Description
 
@@ -37,7 +41,10 @@ node server.js
 
 ```
 
-* [See Live Site](https://note-taker2020.herokuapp.com/)
+<p align="center">
+    <a href="https://note-taker2020.herokuapp.com/"><img src="https://img.shields.io/badge/-👉 See Live Site-success?style=for-the-badge"  alt="Live Site" /></a>
+</p>
+
 
 ## Usage
 
@@ -147,16 +154,18 @@ app.get("/api/notes/:id", function (req, res) {
 
 ### Built With
 
-* [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
-* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
-* [Bootstrap](https://getbootstrap.com/)
-* [Javascript](https://www.javascript.com/)
-* [Node.js](https://nodejs.org/en/)
-* [Express](https://www.npmjs.com/package/express)
-* [W3 Schools](https://www.w3schools.com/)
-* [Bootstrap components](https://getbootstrap.com/docs/4.4/components/navbar/)
-* [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+</br>
+<p align="center">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img src="https://img.shields.io/badge/-HTML-orange?style=for-the-badge"  alt="HMTL" /></a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://img.shields.io/badge/-CSS-blue?style=for-the-badge" alt="CSS" /></a>
+    <a href="https://www.javascript.com/"><img src="https://img.shields.io/badge/-Javascript-yellow?style=for-the-badge" alt="Javascript" /></a>
+    <a href="https://getbootstrap.com/"><img src="https://img.shields.io/badge/-Bootstrap-blueviolet?style=for-the-badge" alt="Bootstrap" /></a>
+    <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/-Node-orange?style=for-the-badge" alt="Node" /></a>
+    <a href="https://www.npmjs.com/package/express"><img src="https://img.shields.io/badge/-Express-blue?style=for-the-badge" alt="Express" /></a>
+</p>
 
 ## License
 
-![License](https://img.shields.io/github/license/kqarlos/note-taker)
+<p align="center">
+    <img align="center" src="https://img.shields.io/github/license/kqarlos/note-taker?style=for-the-badge" alt="MIT license" />
+</p>

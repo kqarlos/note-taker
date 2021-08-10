@@ -15,7 +15,7 @@
     "url": "git+https://github.com/kqarlos/note-taker.git"
   },
   "author": "Carlos Toledo",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kqarlos/note-taker/issues"
   },
